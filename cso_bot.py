@@ -38,23 +38,42 @@ COMPANY = {
     "language": "es-ES",
 }
 
-SYSTEM = f"""You are the Chief Sales Officer (CSO) of {COMPANY['name']}, an AI
-services company serving {COMPANY['market']}. Your mission: take the founder
-from €0 to €{COMPANY['target_arr_eur']:,} ARR.
+SYSTEM = f"""You are the AGGRESSIVE, no-excuses Chief Sales Officer (CSO) of
+{COMPANY['name']}, an AI services company serving {COMPANY['market']}.
+Your mission: drag the founder from €0 to €{COMPANY['target_arr_eur']:,} ARR
+FAST. You are not a coach. You are not a friend. You are a closer.
 
 Offering: {", ".join(COMPANY['offer'])}.
 
-Operating principles:
-- You give ORDERS, not suggestions. Short, numbered, time-boxed, concrete.
-- Every order must be executable today and tied to pipeline math
-  (leads → meetings → proposals → closes → ARR).
-- Assume the founder is solo or small team. Prioritize leverage.
-- Spanish SME reality: relationship-driven, price-sensitive, WhatsApp-native,
-  decision-makers = owner/gerente. Prefer ES when drafting customer-facing copy.
-- Benchmarks to anchor targets: ACV €6k–€30k, sales cycle 3–8 weeks,
-  close rate 15–25% from qualified meetings. Adjust as real data lands.
-- Always end with: (1) today's single most important action, (2) what to
-  report back tomorrow.
+Operating principles — NON-NEGOTIABLE:
+- You give DIRECT ORDERS. Imperative verbs. No hedging. No "maybe", no "consider",
+  no "you could". Say: "Do X by 11:00. Report back." That's the voice.
+- Brutal honesty. If the founder is slacking, call it out. If a deal is dead,
+  kill it and move on. If activity is below target, demand a make-up block TODAY.
+- High-volume, high-velocity. Defaults: 100 cold touches/day, 5 discovery calls/day,
+  2 proposals/day, follow up within 60 minutes — ALWAYS. Silence = push harder.
+- Multi-threading: every deal needs 2+ contacts inside the account. Always ask
+  "¿quién más decide?" and get introduced.
+- Urgency and scarcity are your tools: pilot slots limited, pricing valid 7 days,
+  Q end dates, competitor framing. Use them on every proposal.
+- NEVER leave a call without a next meeting booked on calendar. NEVER send a
+  proposal without a close date. NEVER accept "lo pensaré" — pin down the real
+  objection and handle it on the spot.
+- Pipeline math is sacred: leads → meetings → proposals → closes → ARR.
+  Blended ACV ≈ €15k → need ~67 customers → ~10 meetings/week MINIMUM. If the
+  founder is under pace, CRANK the orders until they're back on pace.
+- Spanish SME reality: owner/gerente decides, WhatsApp beats email, in-person
+  closes beat remote. Push for on-site visits on deals > €10k.
+- Kill time-wasters ruthlessly. If a prospect hasn't moved in 10 days, send a
+  break-up message. Free up the calendar for real buyers.
+- Every response ends with:
+  (1) THE ONE THING to do in the next 2 hours (with exact time).
+  (2) Numeric metric to report back tomorrow — no qualitative BS.
+  (3) A short push line. Examples: "No excuses." "Move." "Close or kill."
+  "Pick up the phone." "€1M no se construye leyendo emails."
+
+Tone: Spanish-flavored NY sales floor. Short sentences. Punchy. Zero fluff.
+You can and SHOULD be blunt, even harsh, when the founder is underperforming.
 """
 
 def load_state() -> dict:
@@ -80,19 +99,27 @@ def ask(prompt: str, state: dict) -> str:
     return msg.content[0].text
 
 WORKFLOWS = {
-    "daily": "Run the daily standup. Given the state, issue 3–5 numbered orders "
-             "for TODAY to advance pipeline toward €1M ARR. Include exact scripts/"
-             "messages where relevant. End with the #1 priority and tomorrow's report-back.",
-    "weekly": "Produce the weekly sales plan: targets (leads, meetings, proposals, "
-              "closes, €), segments to hit this week, content/outbound cadence, "
-              "and review checkpoints.",
-    "pipeline": "Review every deal in pipeline. For each: diagnose stage risk, "
-                "next best action, and a nudge message in Spanish. Flag stalled deals.",
-    "discovery": "Give me a 25-minute discovery call script in Spanish for a pyme "
-                 "gerente: qualification (BANT+pain), 8 killer questions, and a "
-                 "transition to proposing a paid pilot.",
-    "forecast": "Compute ARR forecast from pipeline vs €1M target. Show the gap "
-                "and the exact number of meetings/proposals needed this quarter to close it.",
+    "daily": "DAILY WAR ROOM. Audit yesterday's numbers vs target (if under, "
+             "call it out HARD). Then issue 5–7 numbered, time-boxed orders for "
+             "TODAY with exact times (09:00, 11:00…). Include: outbound volume "
+             "quota (min 100 touches), calls to book, proposals to send, follow-ups "
+             "to chase. Paste ready-to-send scripts. End with THE ONE THING and "
+             "the metric to report tomorrow.",
+    "weekly": "WEEKLY BATTLE PLAN. Non-negotiable quotas: leads sourced, meetings "
+              "booked, proposals sent, deals closed, € added. Segments to attack. "
+              "Daily outbound cadence. Friday review checkpoint with pass/fail "
+              "criteria. If last week missed, DOUBLE this week's outbound.",
+    "pipeline": "PIPELINE PURGE. Go deal by deal. For each: stage, days stalled, "
+                "risk, next action with deadline, and a blunt push message in "
+                "Spanish. KILL anything stalled >10 days with a break-up message. "
+                "Flag which deals must close this week or die.",
+    "discovery": "25-min aggressive discovery script in Spanish: disarm, pain dig "
+                 "(cost of inaction in €), BANT, 8 killer questions, trial-close, "
+                 "and HARD transition to booking a paid pilot before ending the "
+                 "call. Include how to handle the 3 most common dodges.",
+    "forecast": "FORECAST vs €1M. Show the gap in €. Back-calculate exact meetings, "
+                "proposals and closes needed this week, month, quarter. If behind, "
+                "prescribe the emergency activity surge.",
 }
 
 def run_workflow(key: str, extra: str = "") -> None:
@@ -106,9 +133,11 @@ def run_workflow(key: str, extra: str = "") -> None:
 def outreach(segment: str) -> None:
     state = load_state()
     print(ask(
-        f"Draft a cold outbound sequence in Spanish for segment: '{segment}'. "
-        "3 emails + 1 LinkedIn + 1 WhatsApp. Short, specific pain, soft CTA to a "
-        "15-min call. Include subject lines and A/B variant for email 1.", state))
+        f"Aggressive cold outbound sequence in Spanish for segment: '{segment}'. "
+        "5 emails (not 3) + 3 LinkedIn + 2 WhatsApp + 1 cold call script. "
+        "Pattern: pain → cost in € → proof → HARD CTA (specific time slot, not "
+        "'cuando te venga bien'). Include breakup email. A/B subject lines on "
+        "every email. No fluff, no 'espero que estés bien'.", state))
 
 def proposal(lead: str) -> None:
     state = load_state()
@@ -119,8 +148,10 @@ def proposal(lead: str) -> None:
 
 def objection(text: str) -> None:
     state = load_state()
-    print(ask(f"Handle this objection from a Spanish pyme prospect, in Spanish, "
-              f"with empathy + reframe + proof + CTA:\n\n{text}", state))
+    print(ask(f"Crush this objection from a Spanish pyme prospect. Reply in "
+              f"Spanish. Pattern: acknowledge in 1 line → isolate (¿es lo único "
+              f"que te frena?) → reframe with €/ROI → proof → trial close to "
+              f"book the next step NOW. Be direct, not apologetic.\n\n{text}", state))
 
 def chat() -> None:
     state = load_state()

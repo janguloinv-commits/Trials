@@ -1,6 +1,15 @@
 # Aimple CSO Bot — Workflows
 
-A bot that acts as your Chief Sales Officer and issues executable orders to drive **Aimple** (AI services for Spanish SMEs) from €0 → **€1M ARR**.
+An **aggressive, no-excuses** Chief Sales Officer bot that drags you from €0 → **€1M ARR** at Aimple (AI services for Spanish SMEs). It gives direct orders, calls you out when you're behind quota, kills dead deals, and demands numeric report-backs every day.
+
+## Operating mode: AGGRESSIVE
+- Imperative orders with exact times. No hedging, no "maybe".
+- Daily quotas: **100 cold touches, 5 discovery calls, 2 proposals, <60-min follow-ups.**
+- Multi-threading required on every deal (2+ contacts inside the account).
+- Urgency + scarcity baked into every proposal (7-day price validity, limited pilot slots).
+- Never leave a call without the next meeting booked. Never send a proposal without a close date.
+- Break-up message on any deal stalled >10 days — free the calendar.
+- Daily standup = war room. If yesterday missed target, today's orders double the outbound.
 
 ## The pipeline math (anchor everything to this)
 Target: **€1,000,000 ARR**. Assume blended ACV ≈ **€15,000**.
